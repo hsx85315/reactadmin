@@ -3,7 +3,7 @@ import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/
 import type { MenuProps } from 'antd';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
 import { useNavigate} from "react-router-dom";
-
+// import { NavLink as Link } from 'react-router-dom';
 const { Header, Content, Sider } = Layout;
 
 
@@ -13,37 +13,66 @@ const items1: MenuProps['items'] = ['1', '2', '3'].map((key) => ({
   label: `nav ${key}`,
 }));
 
-const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
-  (icon, index) => {
-    const key = String(index + 1); 
-    return {
-      key: `sub${key}`,
-      icon: React.createElement(icon) ,
-      label: `subnav ${key}`,
-
-      children: new Array(4).fill(null).map((_, j) => {
-        const subKey = index * 4 + j + 1;
-        return {
-          key: subKey,
-          icon: React.createElement(icon?icon:`Option${subKey}` ) ,
-          label: `option${subKey}`,
-        };
-      }),
-    };
+const items2: MenuProps['items'] = 
+[
+  {
+    "key": 1,
+    "icon": {"type": '',"key": null,"props": {}},
+    "label": "Home",
+    'children':[]
   },
-);
+  {
+    "key": 2,
+    "icon": {"type":'',"key": null,"props": {}},
+    "label": "系统管理",
+    "children": [{
+            "key": 3,
+            "icon": {"type": '',"key": null,"props": {}},
+            "label": "用户管理"
+        }, {
+            "key": 4,
+            "icon": {"type": '',"key": null,"props": {}},
+            "label": "角色管理"
+        }, {
+            "key": 5,
+            "icon": {"type": '',"key": null,"props": {}},
+            "label": "option3"
+        }, {
+            "key": 6,
+            "icon": {"type": '',"key": null,"props": {}},
+            "label": "部门管理"
+        }
+    ]
+  } 
+]
 
-console.log("items2==:", JSON.stringify( items2) );
+// [UserOutlined, LaptopOutlined, NotificationOutlined].map(
+//   (icon, index) => {
+//     const key = String(index + 1); 
+//     return {
+//       key: `sub${key}`,
+//       icon: React.createElement(icon) ,
+//       label: `subnav ${key}`,
 
+//       children: new Array(4).fill(null).map((_, j) => {
+//         const subKey = index * 4 + j + 1;
+//         return {
+//           key: subKey,
+//           icon: React.createElement(icon?icon:`Option${subKey}` ) ,
+//           label: `option${subKey}`,
+//         };
+//       }),
+//     };
+//   },
+// );
+
+console.log("items2:-- ", JSON.stringify( items2) );
 
 const breads = ['Home','List','App'];
 
-const handleNav= function({ item, key, keyPath, domEvent }){
-
-  console.log( { item, key, keyPath, domEvent }  )
-
-}
-
+// onClick={(e,items2) => {
+//   navigate(e.key.replace("item-", ""))
+// }}
  
 
 const Master: React.FC = () => {
@@ -52,6 +81,9 @@ const Master: React.FC = () => {
   } = theme.useToken();
   let navigate = useNavigate();
 
+const handleNav=(e:any)=>{ 
+  navigate( e.keyPath[1]+'/'+ e.key.replace("item-", ""))
+};
 
   return (
     <Layout>
@@ -67,9 +99,7 @@ const Master: React.FC = () => {
             defaultOpenKeys={['sub1']}
             style={{ height: '100%', borderRight: 0 }}
             items={items2}
-            onClick={(e) => {
-              navigate(e.key.replace("item-", ""))
-            }}
+            onClick={(e)=>handleNav(e)}
           >
           </Menu>
         </Sider>
@@ -77,10 +107,7 @@ const Master: React.FC = () => {
           <Breadcrumb style={{ margin: '16px 0' }}>
           {
             breads.map((item,idx)=>{
-              if(idx===breads.length-1)
-                return  <span key={item}>{item}</span>
-              else
-                return  <span key={item}>{item}&nbsp;/&nbsp;</span>
+               return <span key={item}>{item}{ idx!==breads.length-1&&' /  '}</span>
             })
           }
           </Breadcrumb>
