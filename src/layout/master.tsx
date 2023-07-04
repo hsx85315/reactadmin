@@ -13,34 +13,27 @@ const items1: MenuProps['items'] = ['1', '2', '3'].map((key) => ({
   label: `nav ${key}`,
 }));
 
-const items2: MenuProps['items'] = 
+const items2: MenuProps['items'] =  
 [
   {
     "key": 1,
-    "icon": {"type": '',"key": null,"props": {}},
-    "label": "Home",
-    'children':[]
+    "label": "Home"
   },
   {
     "key": 2,
-    "icon": {"type":'',"key": null,"props": {}},
     "label": "系统管理",
     "children": [{
             "key": 3,
-            "icon": {"type": '',"key": null,"props": {}},
             "label": "用户管理"
         }, {
             "key": 4,
-            "icon": {"type": '',"key": null,"props": {}},
             "label": "角色管理"
         }, {
             "key": 5,
-            "icon": {"type": '',"key": null,"props": {}},
-            "label": "option3"
+            "label": "部门管理"
         }, {
             "key": 6,
-            "icon": {"type": '',"key": null,"props": {}},
-            "label": "部门管理"
+            "label": "功能配置"
         }
     ]
   } 
@@ -66,7 +59,6 @@ const items2: MenuProps['items'] =
 //   },
 // );
 
-console.log("items2:-- ", JSON.stringify( items2) );
 
 const breads = ['Home','List','App'];
 
